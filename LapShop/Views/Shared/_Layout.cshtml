@@ -1,0 +1,176 @@
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="LapShop - laptops store">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <title>@(ViewData["Title"] ?? "Home") - LapShop</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontEnd/css/color19.css" media="screen" id="color">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <!-- header start -->
+    <header class="header-tools marketplace">
+        <div class="mobile-fix-option"></div>
+        <div class="top-header">
+            <div class="container-fluid custom-container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header-contact">
+                            <ul>
+                                <li>Welcome to LapShop</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <ul class="header-dropdown">
+                            <li class="onhover-dropdown mobile-account">
+                                <i class="fa fa-user" aria-hidden="true"></i> My Account
+                                <ul class="onhover-show-div">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <li><a asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
+                                        <li><a asp-controller="Account" asp-action="LoginOut">Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid custom-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="main-menu">
+                        <div class="menu-left">
+                            <div class="brand-logo">
+                                <a asp-controller="Home" asp-action="Index"><h3 class="mb-0 font-weight-bold">LapShop</h3></a>
+                            </div>
+                        </div>
+                        <div class="menu-right pull-right">
+                            <div>
+                                <nav id="main-nav">
+                                    <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
+                                    <ul id="main-menu" class="sm pixelstrap sm-horizontal">
+                                        <li>
+                                            <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2" aria-hidden="true"></i></div>
+                                        </li>
+                                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                        <li><a asp-controller="Order" asp-action="Cart">Cart</a></li>
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <li><a asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div>
+                                <div class="icon-nav">
+                                    <ul>
+                                        <li class="onhover-div mobile-cart">
+                                            <div>
+                                                <a asp-controller="Order" asp-action="Cart" title="Cart"><i class="ti-shopping-cart"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end -->
+
+    @RenderBody()
+
+    <!-- footer -->
+    <footer class="footer-light">
+        <section class="section-b-space light-layout">
+            <div class="container">
+                <div class="row footer-theme partition-f">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="footer-title footer-mobile-title">
+                            <h4>about</h4>
+                        </div>
+                        <div class="footer-contant">
+                            <h3 class="font-weight-bold">LapShop</h3>
+                            <p>Laptops for work, study and gaming.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>my account</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul>
+                                    <li><a asp-controller="Order" asp-action="Cart">Cart</a></li>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <li><a asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
+                                        <li><a asp-controller="Account" asp-action="LoginOut">Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-end">
+                            <p><i class="fa fa-copyright" aria-hidden="true"></i> @DateTime.Now.Year LapShop</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- tap to top -->
+    <div class="tap-top top-cls">
+        <div>
+            <i class="fa fa-angle-double-up"></i>
+        </div>
+    </div>
+
+    <script src="~/FrontEnd/js/jquery-3.3.1.min.js"></script>
+    <script src="~/FrontEnd/js/popper.min.js"></script>
+    <script src="~/FrontEnd/js/slick.js"></script>
+    <script src="~/FrontEnd/js/menu.js"></script>
+    <script src="~/FrontEnd/js/lazysizes.min.js"></script>
+    <script src="~/FrontEnd/js/bootstrap.js"></script>
+    <script src="~/FrontEnd/js/bootstrap-notify.min.js"></script>
+    <script src="~/FrontEnd/js/script.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BusinessLayer/BusinessLayer.csproj" Id="5dae148a-1693-4e50-b815-23ec112bbf93" />
+  <Project Path="Domains/Domains.csproj" Id="03ea6d27-b378-43eb-af76-668feb5c6de6" />
+  <Project Path="LapShop/LapShop.csproj" />
+  <Project Path="Resources/Resources.csproj" Id="84a1179d-7b87-4fe8-85e1-a236224c0625" />
+</Solution>

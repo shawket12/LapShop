@@ -1,0 +1,76 @@
+@model VmHomePage
+@{
+    ViewData["Title"] = "Home";
+}
+
+@if (Model.LstSliders != null && Model.LstSliders.Any())
+{
+    <!-- Home slider -->
+    <section class="p-0 layout-7">
+        <div class="slide-1 home-slider">
+            @foreach (var item in Model.LstSliders)
+            {
+                <div>
+                    <div class="home text-left">
+                        <img src="~/Uploads/Sliders/@item.ImageName" alt="@item.Title" class="bg-img blur-up lazyload">
+                        <div class="container-fluid custom-container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="slider-contain">
+                                        <div>
+                                            <h4>@item.Title</h4>
+                                            <h1>@item.Description</h1>
+                                            <a href="#products" class="btn btn-solid">shop now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}
+
+@if (Model.LstNewItems.Any())
+{
+    <!-- New arrivals -->
+    <div class="title1 section-t-space">
+        <h4>just in</h4>
+        <h2 class="title-inner1">new arrivals</h2>
+    </div>
+    <section class="pt-0 section-b-space ratio_asos">
+        <div class="container">
+            <div class="row game-product grid-products">
+                @foreach (var item in Model.LstNewItems)
+                {
+                    <partial name="_ItemBox" model="item" />
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- All laptops -->
+<div class="title1 section-t-space" id="products">
+    <h4>browse</h4>
+    <h2 class="title-inner1">all laptops</h2>
+</div>
+<section class="pt-0 section-b-space ratio_asos">
+    <div class="container">
+        @if (Model.LstAllItems.Any())
+        {
+            <div class="row game-product grid-products">
+                @foreach (var item in Model.LstAllItems)
+                {
+                    <partial name="_ItemBox" model="item" />
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-center">No items available yet.</p>
+        }
+    </div>
+</section>

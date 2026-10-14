@@ -1,0 +1,31 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+**/bin/
+**/obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+
+# NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Local environment settings
+.env
+.env.*
+
+# User-specific files
+*.rsuser
+**/appsettings.Development.json
+
+# Local settings
+appsettings.Local.json

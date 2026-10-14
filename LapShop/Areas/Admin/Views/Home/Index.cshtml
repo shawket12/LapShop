@@ -1,0 +1,105 @@
+@model LapShop.ViewModels.VmAdminDashboard
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-home"></i>
+            </span> Dashboard
+        </h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">Items <i class="mdi mdi-laptop mdi-24px float-end"></i></h4>
+                    <h2 class="mb-4">@Model.ItemsCount</h2>
+                    <a asp-controller="Item" asp-action="List" class="text-white">Manage items &rarr;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">Categories <i class="mdi mdi-view-list mdi-24px float-end"></i></h4>
+                    <h2 class="mb-4">@Model.CategoriesCount</h2>
+                    <a asp-controller="Categories" asp-action="List" class="text-white">Manage categories &rarr;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                    <h4 class="font-weight-normal mb-3">Sliders <i class="mdi mdi-image-multiple mdi-24px float-end"></i></h4>
+                    <h2 class="mb-4">@Model.SlidersCount</h2>
+                    <a asp-controller="Slider" asp-action="List" class="text-white">Manage sliders &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Latest items</h4>
+                    @if (Model.LatestItems.Count == 0)
+                    {
+                        <p class="text-muted mb-0">No items yet. <a asp-controller="Item" asp-action="Edit">Add your first item</a>.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Added</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.LatestItems)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.ImageName))
+                                                {
+                                                    <img src="~/Uploads/Items/@item.ImageName" alt="" style="width:48px;height:48px;object-fit:cover;" />
+                                                }
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Item" asp-action="Edit" asp-route-itemId="@item.ItemId">@item.ItemName</a>
+                                            </td>
+                                            <td>@item.CategoryName</td>
+                                            <td>@item.SalesPrice.ToString("N2")</td>
+                                            <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Coming next</h4>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3"><i class="mdi mdi-cart text-primary me-2"></i> Orders: checkout and order history</li>
+                        <li class="mb-3"><i class="mdi mdi-account-multiple text-primary me-2"></i> Customers</li>
+                        <li class="mb-0"><i class="mdi mdi-settings text-primary me-2"></i> Store settings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

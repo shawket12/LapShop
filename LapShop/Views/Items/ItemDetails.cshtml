@@ -1,0 +1,131 @@
+@model VmItemDetails
+@{
+    ViewData["Title"] = Model.Item.ItemName;
+
+    // gallery: extra images if any, otherwise the main item image
+    var images = Model.LstItemImages.Select(i => i.ImageName).ToList();
+    if (!images.Any() && !string.IsNullOrEmpty(Model.Item.ImageName))
+    {
+        images.Add(Model.Item.ImageName);
+    }
+}
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>product</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@Model.Item.ItemName</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-sm-2 col-xs-12">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <div class="slider-right-nav">
+                                @foreach (var image in images)
+                                {
+                                    <div><img src="~/Uploads/Items/@image" alt="@Model.Item.ItemName" class="img-fluid blur-up lazyload"></div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-10 col-xs-12 order-up">
+                    <div class="product-right-slick">
+                        @foreach (var image in images)
+                        {
+                            <div><img src="~/Uploads/Items/@image" alt="@Model.Item.ItemName" class="img-fluid blur-up lazyload"></div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="product-right product-form-box">
+                        <h2>@Model.Item.ItemName</h2>
+                        <h3>$@Model.Item.SalesPrice</h3>
+                        <div class="product-description border-product">
+                            <h6 class="product-title">category</h6>
+                            <p>@Model.Item.CategoryName</p>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(Model.Item.Description))
+                        {
+                            <div class="border-product">
+                                <h6 class="product-title">product details</h6>
+                                <p>@Model.Item.Description</p>
+                            </div>
+                        }
+                        <div class="product-buttons">
+                            <a asp-controller="Order" asp-action="AddToCart" asp-route-itemId="@Model.Item.ItemId" class="btn btn-solid">add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- specifications -->
+<section class="tab-product m-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <h4 class="mb-3">Specifications</h4>
+                <div class="single-product-tables">
+                    <table>
+                        <tbody>
+                            <tr><td>Processor</td><td>@Model.Item.Processor</td></tr>
+                            <tr><td>RAM</td><td>@Model.Item.RamSize</td></tr>
+                            <tr><td>Hard Disk</td><td>@Model.Item.HardDisk</td></tr>
+                            <tr><td>GPU</td><td>@Model.Item.Gpu</td></tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr><td>Screen Size</td><td>@Model.Item.ScreenSize</td></tr>
+                            <tr><td>Screen Resolution</td><td>@Model.Item.ScreenReslution</td></tr>
+                            <tr><td>Operating System</td><td>@Model.Item.OsName</td></tr>
+                            <tr><td>Weight</td><td>@Model.Item.Weight</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.LstRecommendedItems.Any())
+{
+    <!-- related products -->
+    <section class="section-b-space ratio_asos">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 product-related">
+                    <h2>related products</h2>
+                </div>
+            </div>
+            <div class="row search-product">
+                @foreach (var item in Model.LstRecommendedItems)
+                {
+                    <partial name="_ItemBox" model="item" />
+                }
+            </div>
+        </div>
+    </section>
+}
